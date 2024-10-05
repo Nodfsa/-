@@ -38,7 +38,7 @@
             text-shadow: 3px 3px 15px rgba(255, 0, 0, 0.8), 0px 0px 20px rgba(255, 255, 255, 0.2);
             opacity: 0;
             transform: translateY(20px);
-            animation: textAppear 1s forwards;
+            animation: textAppear 1s forwards, textGlow 2s infinite alternate;
             position: relative;
         }
 
@@ -69,6 +69,7 @@
             background: #ff4d4d;
             border-color: #fff;
             box-shadow: 0 0 30px rgba(255, 77, 77, 1), 0 0 40px rgba(255, 255, 255, 0.5);
+            animation: shake 0.5s;
         }
 
         @keyframes textAppear {
@@ -113,6 +114,20 @@
                 background: linear-gradient(135deg, #330000 0%, #000000 100%);
             }
         }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(255, 77, 77, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 77, 77, 1); }
+            100% { text-shadow: 0 0 5px rgba(255, 77, 77, 0.5); }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
     </style>
 </head>
 <body>
@@ -135,7 +150,9 @@
             }
         }
 
-        window.onload = typeText; // Запускаем анимацию при загрузке страницы
+        window.onload = function() {
+            typeText();
+        };
     </script>
 </body>
 </html>
