@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Damn Bio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
         /* Основные стили */
@@ -19,6 +20,7 @@
             justify-content: center;
             height: 100vh;
             overflow: hidden;
+            padding: 20px; /* Добавляем отступы для мобильных устройств */
         }
 
         /* Анимация мерцающего текста */
@@ -55,10 +57,11 @@
             border: 2px solid #00ff00;
             border-radius: 20px;
             padding: 40px;
-            width: 85%;
-            max-width: 800px;
+            width: 100%; /* Полная ширина */
+            max-width: 800px; /* Максимальная ширина */
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
             overflow: hidden;
+            box-sizing: border-box; /* Учитываем отступы и границы */
         }
 
         /* Анимация текста */
@@ -67,6 +70,7 @@
             line-height: 1.8;
             color: #00ff00;
             white-space: pre-wrap;
+            font-family: 'Roboto', sans-serif; /* Изменённый шрифт */
         }
 
         /* Стиль кнопок */
