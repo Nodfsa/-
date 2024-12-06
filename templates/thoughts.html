@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Слив скриптов{% endblock %}
+
+{% block content %}
+<div class="coming-soon">
+    <div class="message">
+        <h1>Скоро будет доступно</h1>
+        <div class="typing-dots">...</div>
+    </div>
+</div>
+
+<style>
+.coming-soon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: linear-gradient(45deg, #000000, #1a0000);
+    position: relative;
+    overflow: hidden;
+}
+
+.coming-soon::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
+    animation: pulse 4s infinite;
+}
+
+.message {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.message h1 {
+    color: #ff0000;
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    animation: glow 2s infinite;
+}
+
+.typing-dots {
+    color: #ff0000;
+    font-size: 4rem;
+    letter-spacing: 8px;
+    animation: typing 1.5s infinite;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+@keyframes typing {
+    0% { opacity: 0.3; }
+    33% { opacity: 0.6; }
+    66% { opacity: 0.9; }
+    100% { opacity: 0.3; }
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+    50% { text-shadow: 0 0 30px rgba(255, 0, 0, 0.8); }
+    100% { text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+}
+</style>
+{% endblock %}

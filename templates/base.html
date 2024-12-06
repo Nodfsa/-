@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Damn BIO{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .loader-content h2 {
+            color: rgba(255, 0, 0, 0.8);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 3px;
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #ff0000;
+            animation: progress 2s ease-in-out forwards;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 2px rgba(255, 0, 0, 0.2), 
+                            0 0 4px rgba(255, 0, 0, 0.2), 
+                            0 0 6px rgba(255, 0, 0, 0.2);
+            }
+            to {
+                text-shadow: 0 0 4px rgba(255, 0, 0, 0.4), 
+                            0 0 8px rgba(255, 0, 0, 0.3), 
+                            0 0 12px rgba(255, 0, 0, 0.2);
+            }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 1.2em;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link:hover .nav-icon {
+            filter: grayscale(0%);
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <div id="particles"></div>
+        <div class="loader-content">
+            <h2>Loading</h2>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="main-nav">
+        <div class="nav-brand">
+            <span class="brand-text">Damn BIO</span>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('bio') }}" class="nav-link">
+                <span class="nav-icon">👤</span>
+                <span>Био</span>
+            </a>
+            <a href="{{ url_for('thoughts') }}" class="nav-link">
+                <span class="nav-icon">💫</span>
+                <span>Слив скриптов</span>
+            </a>
+        </div>
+        <div class="nav-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2024 Damn BIO. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const particles = document.getElementById('particles');
+        const particleCount = 50;
+        
+        for (let i = 0; i < particleCount; i++) {
+            createParticle();
+        }
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = '#ff0000';
+            particle.style.borderRadius = '50%';
+            
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            
+            particle.style.left = startX + '%';
+            particle.style.top = startY + '%';
+            
+            particles.appendChild(particle);
+            
+            animateParticle(particle);
+        }
+        
+        function animateParticle(particle) {
+            const duration = 2 + Math.random() * 2;
+            const scale = 0.5 + Math.random();
+            
+            gsap.to(particle, {
+                duration: duration,
+                scale: scale,
+                opacity: 0,
+                y: -100 - Math.random() * 100,
+                x: (Math.random() - 0.5) * 50,
+                ease: 'power1.out',
+                onComplete: () => {
+                    particle.style.opacity = '1';
+                    particle.style.transform = 'scale(1)';
+                    particle.style.top = '100%';
+                    animateParticle(particle);
+                }
+            });
+        }
+        
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            gsap.to(loadingScreen, {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+                    loadingScreen.style.display = 'none';
+                }
+            });
+        }, 2500);
+    });
+    </script>
+</body>
+</html>
